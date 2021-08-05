@@ -1,0 +1,74 @@
+<mvc:View
+	controllerName="customer.controller.Home"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:l="sap.ui.layout"
+>
+	<Page
+		id="page"
+		title="Home View"
+	>
+		<Panel
+			id="Panel0"
+			width="auto"
+			class="sapUiResponsiveMargin"
+			headerText="Customer"
+		>
+			<l:VerticalLayout>
+				<Button
+					id="Press"
+					text="Press"
+					press="onClick"
+					icon="sap-icon://touch"
+				/>
+			</l:VerticalLayout>
+			<l:HorizontalLayout class="sapUiContentPadding">
+				<Input
+					id="customer"
+					placeholder="Customer Id"
+				/>
+				<Input
+					id="name"
+					placeholder="Customer Name"
+				/>
+				<Input
+					id="address"
+					placeholder="Address"
+				/>
+				<Input
+					id="country"
+					placeholder="Country"
+				/>
+			</l:HorizontalLayout>
+		</Panel>
+
+		<Panel id="Panel1" width="auto" class="sapUiResponsiveMargin" headerText="Customer List">
+			<Table id="table0" items="{/ZCUST_DATASet}">
+				<columns>
+					<Column id="cCust">
+						<Text text="Customer"/>
+					</Column>
+					<Column id="cName">
+						<Text text="Name"/>
+					</Column>
+					<Column id="cAddress">
+						<Text text="Address"/>
+					</Column>
+					<Column id="cCountry">
+						<Text text="Country"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem type="Active" id="CList">
+					  <cells>
+							<Text id="iCustID" text="{CustomerId}"></Text>
+							<Text id="iCustName" text="{Name}"></Text>
+							<Text id="iCustAddr" text="{Address}"></Text>
+							<Text id="iCustCountry" text="{Country}"></Text>						  
+					  </cells>
+					</ColumnListItem>
+				</items>
+			</Table>		
+		</Panel>
+	</Page>
+</mvc:View>

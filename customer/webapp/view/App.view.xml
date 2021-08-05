@@ -1,0 +1,11 @@
+<mvc:View
+    controllerName="customer.controller.App"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+	displayBlock="true"
+>
+	<Shell id="shell">
+		<App id="app">
+		</App>
+	</Shell>
+</mvc:View>

@@ -1,0 +1,9 @@
+<mvc:View
+	controllerName="NotFound.controller.js"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc">
+	<MessagePage
+		title="Not Found"
+		text="Not Found"
+		description="Not Found"/>
+</mvc:View>
