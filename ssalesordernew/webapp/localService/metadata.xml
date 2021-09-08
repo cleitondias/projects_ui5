@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="http://23.96.51.39:8000/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZSALERORDER_CDS" xml:lang="pt" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="zSalerOrderType" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="p_auart"/>
+                    <PropertyRef Name="OrderNumber"/>
+                </Key>
+                <Property Name="p_auart" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Tipo doc.vendas"/>
+                <Property Name="OrderNumber" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Documento de vendas"/>
+                <Property Name="DocumentDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Dta.criação" sap:quickinfo="Data de criação do registro"/>
+                <Property Name="Category" Type="Edm.String" MaxLength="4" sap:label="Ctg.documento SD" sap:quickinfo="Categoria do documento de vendas e distribuição"/>
+                <Property Name="DocumentType" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Tipo doc.vendas" sap:quickinfo="Tipo de documento de vendas"/>
+                <Property Name="Currency" Type="Edm.String" MaxLength="5" sap:label="Moeda do documento" sap:quickinfo="Moeda do documento SD" sap:semantics="currency-code"/>
+                <Property Name="NetPrice" Type="Edm.Decimal" Precision="16" Scale="3" sap:label="Valor líquido" sap:quickinfo="Valor líquido da ordem na moeda do documento"/>
+                <Property Name="SalesOrganization" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Organização vendas" sap:quickinfo="Organização de vendas"/>
+                <Property Name="DistrChannel" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Canal distribuição" sap:quickinfo="Canal de distribuição"/>
+                <Property Name="Division" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Setor de atividade"/>
+                <Property Name="Customer" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Emissor da ordem"/>
+                <NavigationProperty Name="to_SOITEMS" Relationship="ZSALERORDER_CDS.assoc_2C8F4D70A23D92A0C1447B460E39E40C" FromRole="FromRole_assoc_2C8F4D70A23D92A0C1447B460E39E40C" ToRole="ToRole_assoc_2C8F4D70A23D92A0C1447B460E39E40C"/>
+                <NavigationProperty Name="Parameters" Relationship="ZSALERORDER_CDS.assoc_BD7A82E0BF9D2ADFDA6770EE44551325" FromRole="ToRole_assoc_BD7A82E0BF9D2ADFDA6770EE44551325" ToRole="FromRole_assoc_BD7A82E0BF9D2ADFDA6770EE44551325" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="zSalerOrderParameters" sap:semantics="parameters" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="p_auart"/>
+                </Key>
+                <Property Name="p_auart" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:parameter="mandatory" sap:label="Tipo doc.vendas" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="Set" Relationship="ZSALERORDER_CDS.assoc_BD7A82E0BF9D2ADFDA6770EE44551325" FromRole="FromRole_assoc_BD7A82E0BF9D2ADFDA6770EE44551325" ToRole="ToRole_assoc_BD7A82E0BF9D2ADFDA6770EE44551325"/>
+            </EntityType>
+            <EntityType Name="zSalesOrderItemsType" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="OrderNumber"/>
+                    <PropertyRef Name="Item"/>
+                </Key>
+                <Property Name="OrderNumber" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Documento de vendas"/>
+                <Property Name="Item" Type="Edm.String" Nullable="false" MaxLength="6" sap:display-format="NonNegative" sap:label="Item" sap:quickinfo="Item do documento de vendas"/>
+                <Property Name="Material" Type="Edm.String" MaxLength="40" sap:display-format="UpperCase" sap:label="Material" sap:quickinfo="Nº do material"/>
+                <Property Name="Description" Type="Edm.String" MaxLength="9" sap:display-format="UpperCase" sap:label="Grupo de mercadorias"/>
+                <Property Name="UnitMeasure" Type="Edm.String" MaxLength="3" sap:label="Unid.medida básica" sap:quickinfo="Unidade de medida básica" sap:semantics="unit-of-measure"/>
+                <Property Name="NetValue" Type="Edm.Decimal" Precision="16" Scale="3" sap:unit="Currency" sap:label="Valor líquido" sap:quickinfo="Valor líquido item ordem na moeda documento"/>
+                <Property Name="Currency" Type="Edm.String" MaxLength="5" sap:label="Moeda do documento" sap:quickinfo="Moeda do documento SD" sap:semantics="currency-code"/>
+                <Property Name="CreateAt" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Dta.criação" sap:quickinfo="Data de criação do registro"/>
+                <Property Name="CreateOn" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Criado por" sap:quickinfo="Nome do responsável que adicionou o objeto"/>
+                <Property Name="NetPrice" Type="Edm.Decimal" Precision="12" Scale="3" sap:unit="Currency" sap:label="Preço líquido"/>
+            </EntityType>
+            <Association Name="assoc_BD7A82E0BF9D2ADFDA6770EE44551325" sap:content-version="1">
+                <End Type="ZSALERORDER_CDS.zSalerOrderParameters" Multiplicity="1" Role="FromRole_assoc_BD7A82E0BF9D2ADFDA6770EE44551325"/>
+                <End Type="ZSALERORDER_CDS.zSalerOrderType" Multiplicity="*" Role="ToRole_assoc_BD7A82E0BF9D2ADFDA6770EE44551325"/>
+            </Association>
+            <Association Name="assoc_2C8F4D70A23D92A0C1447B460E39E40C" sap:content-version="1">
+                <End Type="ZSALERORDER_CDS.zSalerOrderType" Multiplicity="1" Role="FromRole_assoc_2C8F4D70A23D92A0C1447B460E39E40C"/>
+                <End Type="ZSALERORDER_CDS.zSalesOrderItemsType" Multiplicity="*" Role="ToRole_assoc_2C8F4D70A23D92A0C1447B460E39E40C"/>
+            </Association>
+            <EntityContainer Name="ZSALERORDER_CDS_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="zSalerOrderSet" EntityType="ZSALERORDER_CDS.zSalerOrderType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="zSalerOrder" EntityType="ZSALERORDER_CDS.zSalerOrderParameters" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="zSalesOrderItems" EntityType="ZSALERORDER_CDS.zSalesOrderItemsType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <AssociationSet Name="assoc_2C8F4D70A23D92A0C1447B460E39E40C" Association="ZSALERORDER_CDS.assoc_2C8F4D70A23D92A0C1447B460E39E40C" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="zSalerOrderSet" Role="FromRole_assoc_2C8F4D70A23D92A0C1447B460E39E40C"/>
+                    <End EntitySet="zSalesOrderItems" Role="ToRole_assoc_2C8F4D70A23D92A0C1447B460E39E40C"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_BD7A82E0BF9D2ADFDA6770EE44551325" Association="ZSALERORDER_CDS.assoc_BD7A82E0BF9D2ADFDA6770EE44551325" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="zSalerOrder" Role="FromRole_assoc_BD7A82E0BF9D2ADFDA6770EE44551325"/>
+                    <End EntitySet="zSalerOrderSet" Role="ToRole_assoc_BD7A82E0BF9D2ADFDA6770EE44551325"/>
+                </AssociationSet>
+            </EntityContainer>
+            <atom:link rel="self" href="http://23.96.51.39:8000/sap/opu/odata/sap/ZSALERORDER_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="http://23.96.51.39:8000/sap/opu/odata/sap/ZSALERORDER_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
