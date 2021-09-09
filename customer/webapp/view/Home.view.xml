@@ -14,14 +14,6 @@
 			class="sapUiResponsiveMargin"
 			headerText="Customer"
 		>
-			<l:VerticalLayout>
-				<Button
-					id="Press"
-					text="Press"
-					press="onClick"
-					icon="sap-icon://touch"
-				/>
-			</l:VerticalLayout>
 			<l:HorizontalLayout class="sapUiContentPadding">
 				<Input
 					id="customer"
@@ -42,8 +34,17 @@
 			</l:HorizontalLayout>
 		</Panel>
 
-		<Panel id="Panel1" width="auto" class="sapUiResponsiveMargin" headerText="Customer List">
-			<Table id="table0" items="{/ZCUST_DATASet}">
+		<Panel id="Panel1" width="auto" class="sapUiResponsiveMargin" >
+		  <headerToolbar>
+			  <OverflowToolbar>		
+			   <Title
+				   text="Customer List" />				   
+			   <ToolbarSpacer />
+			    <Button id='Add' text='Add Customer' press='onClick' icon='sap-icon://add-contact' />
+				<Button id='Del' text='' press='Delete' icon='sap-icon://delete' />
+			  </OverflowToolbar>
+		  </headerToolbar>
+			<Table id="table0" items="{/ZCUST_DATASet}" mode="MultiSelect">
 				<columns>
 					<Column id="cCust">
 						<Text text="Customer"/>

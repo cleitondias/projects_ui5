@@ -54,7 +54,7 @@ sap.ui.define([
 			}); */
 
 			//Disable Batch Request
-			oModel.setUseBatch(false);
+			oModel.setUseBatch(true);
 
 			oModel.create("/ZCUST_DATASet", oEntry, {
 
