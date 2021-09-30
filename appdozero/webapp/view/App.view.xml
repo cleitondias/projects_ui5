@@ -1,0 +1,94 @@
+<mvc:View 
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+	xmlns:core="sap.ui.core"
+controllerName="cgutech.template.controller.App"
+>
+
+<Text text="Hello Worlf from View"/>
+
+<Button text="Click me" 
+		press="onClick" />
+
+  <Panel headerText="Cadastro de: {pessoa>/nome} {pessoa>/sobrenome}"  class="sapUiResponsiveMargin" width="auto">
+    <content>
+      <Label text="Nome" class="sapUiSmallMargin" />
+      <Input value="{pessoa>/nome}" valueLiveUpdate="true" width="200px" enabled="{pessoa>/habilitado}" />
+      <Label text="Sobrenome" class="sapUiSmallMargin" />
+      <Input value="{pessoa>/sobrenome}" valueLiveUpdate="false" width="200px" enabled="{pessoa>/habilitado}" />
+      <CheckBox selected="{pessoa>/habilitado}" text="Habilitado" />
+    </content>
+  </Panel> 		
+
+   <Panel visible="false" headerText="Detalhes Endereço" class="sapUiResponsiveMargin" width="auto">
+    <content>
+      	 <l:VerticalLayout> 
+          <Label class="sapUiSmallMargin" text="Endereço:" />
+          <Text class="sapUiSmallMarginBegin" text="{pessoa>/endereco/rua}" /> 
+          <Text class="sapUiSmallMarginBegin" text="{pessoa>/endereco/cidade}" />     
+          <Text class="sapUiSmallMarginBegin" text="{pessoa>/endereco/cep}" />     
+          <Text class="sapUiSmallMarginBegin" text="{pessoa>/endereco/pais}" />                           
+         </l:VerticalLayout>    
+    </content>
+  </Panel>  
+
+  <List headerText="Lista de Funcionarios"
+        visible="false"
+        growing="true"
+		growingThreshold="4"
+		growingScrollToLoad="false"
+        class="sapUiResponsiveMargin"
+        width="auto"
+        items="{empregados>/Funcionarios}">
+        <items>
+            <StandardListItem
+			     title="{empregados>nome} {empregados>sobrenome}"
+			     info="{= ${empregados>habilitado} === true ? 'Habilitado' : 'Inativo' }"
+				 type="Active"
+				 press="onFuncionarioSelected" />
+      </items>		
+  </List>
+
+   <Panel id="detalhePanel" visible="false" headerText="Detalhes Funcionarios" class="sapUiResponsiveMargin" width="auto">
+    <content>
+      	 <l:VerticalLayout> 
+          <Text class="sapUiSmallMarginBegin" text="Nome: {empregados>nome}" /> 
+          <Text class="sapUiSmallMarginBegin" text="Sobrenome: {empregados>sobrenome}" />     
+          <Text class="sapUiSmallMarginBegin" text="Habilitado: {empregados>habilitado}" />                                
+         </l:VerticalLayout>    
+    </content>
+  </Panel>   
+  
+  
+  
+  <Panel id="clientePanel"  headerText="Detalhes Funcionarios" class="sapUiResponsiveMargin" width="auto">
+    <content>
+      	 <l:VerticalLayout> 
+          <Text class="sapUiSmallMarginBegin" text="ID: {ClientID}" /> 
+          <Text class="sapUiSmallMarginBegin" text="Nome: {Name}" />     
+          <Text class="sapUiSmallMarginBegin" text="Telefone: {Telephone}" />
+          <Text class="sapUiSmallMarginBegin" text="UF: {District}" />                                
+          <Text class="sapUiSmallMarginBegin" text="E-mail: {Email}" />
+          <Text class="sapUiSmallMarginBegin" text="Status: {Status}" />
+         </l:VerticalLayout>    
+    </content>
+  </Panel>  
+
+  <List headerText="Lista de Clientes"
+        growing="true"
+		growingThreshold="4"
+		growingScrollToLoad="false"
+        class="sapUiResponsiveMargin"
+        width="auto"
+        items="{/ClientSet}"
+        >
+        <items>
+            <StandardListItem
+            type="Active"
+            press="onClientSelected"            
+			     title="{ClientID} {Name}"/>
+      </items>		
+  </List>  
+
+</mvc:View>

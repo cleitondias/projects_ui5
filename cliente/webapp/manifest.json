@@ -71,7 +71,10 @@
 			},
 			"": {
 				"dataSource": "mainService",
-				"preload": true
+				"preload": true,
+				"settings": {
+					"defaultBindingMode": "TwoWay"
+				}
 			}
 		},
 
@@ -98,6 +101,11 @@
 					"pattern": "ClientSet/{objectId}",
 					"name": "object",
 					"target": ["object"]
+				},
+				{
+					"pattern": "create",
+					"name": "create",
+					"target": ["create"]					
 				}
 			],
 
@@ -121,6 +129,11 @@
 				"notFound": {
 					"viewName": "NotFound",
 					"viewId": "notFound"
+				},
+				"create": {
+					"viewName": "Create",
+					"viewId": "create",
+					"viewLevel": 2					
 				}
 			}
 		}

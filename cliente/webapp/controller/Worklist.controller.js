@@ -3,8 +3,16 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"../model/formatter",
 	"sap/ui/model/Filter",
-	"sap/ui/model/FilterOperator"
-], function (BaseController, JSONModel, formatter, Filter, FilterOperator) {
+	"sap/ui/model/FilterOperator",
+	"sap/ui/model/Sorter",
+	"sap/m/MessageToast"
+], function (BaseController,
+	JSONModel,
+	formatter,
+	Filter,
+	FilterOperator,
+	Sorter,
+	MessageToast) {
 	"use strict";
 
 	return BaseController.extend("cliente.controller.Worklist", {
@@ -52,8 +60,186 @@ sap.ui.define([
 		},
 
 		/* =========================================================== */
-		/* event handlers                                              */
+		/* Begin - Custom Methods                                      */
 		/* =========================================================== */
+		onSortItems: function(oEvent) {
+
+			var field='Name';
+			var oSorter = new sap.ui.model.Sorter({
+				path: field,
+				desceding:false
+			});
+
+			var table = this.byId("table");
+			var items = table.getBinding("items");
+			items.sort(oSorter);
+
+		},
+
+		onSearch2 : function (oEvent) {
+
+				var aTableSearchState = [];
+				var sQuery = oEvent.getParameter("query");
+
+				if (sQuery && sQuery.length > 0) {
+					aTableSearchState = [new Filter("Name", FilterOperator.Contains, sQuery)];
+				}
+				//this._applySearch(aTableSearchState);
+				var table = this.byId("table");
+				var items = table.getBinding("items");
+				items.filter(aTableSearchState);				
+			
+		},
+
+		onRead: function() {
+
+			var oModel = this.getView().getModel();
+
+			oModel.read( "/ClientSet",
+			{
+				success: function(oDados, oResponse){
+					debugger
+
+				}.bind(this),
+				
+				error: function(oError){
+					debugger
+
+				}.bind(this)
+			}
+
+			);
+			console.log("End method")
+		},
+
+		onRead2: function(){
+
+			var aFilters = [];
+
+			var table = this.byId("table");  
+		    var bindingInfo = table.getBindingInfo('items');
+
+			table.bindAggregation("items", 
+			{
+				model: bindingInfo.model,
+				path: '/ClientSet',
+				template: bindingInfo.template,
+				sorter: [
+					new sap.ui.model.Sorter({
+						path: "ClientID",
+						desceding:false
+					})
+				],
+				filter: aFilters
+			});
+
+
+
+		},
+
+		onDelete: function(oEvent){
+
+			var oItems = oEvent.getParameter("listItem");
+			var sPath = oItems.getBindingContext().getPath();
+
+			var oModel = this.getView().getModel();
+
+			oModel.remove(sPath, {
+
+			   success: function(){
+				   	sap.MessageToast.show("Entry deleted success");
+
+			   }.bind(this), error: function(e){				
+					console.error(e);
+			   }.bind(this)
+
+			});
+
+		},
+
+       onCreate: function(){
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			oRouter.navTo("create", {});
+	   },
+
+	   onChangeStatus: function(oEvent){
+			var oSource = oEvent.getSource();
+			var oParent = oSource.getParent();
+			var bc =  oParent.getBindingContext();
+
+			//var path = bc.getPath();
+			var obj = bc.getObject();
+
+			var oModel = this.getView().getModel();
+
+			oModel.callFunction(
+				"/AlteraStatus_176", {
+					method: "GET",
+					urlParameters: {
+						ID: obj.ClientID
+					},
+					success: function(){
+						MessageToast.show("Status changed");
+					}.bind(this),					
+					error: function(e){
+						console.error(e);
+					}.bind(this)					
+				}
+			);
+
+	   },
+
+	onDelete2: function(oEvent){
+		debugger;
+		var oTable = this.byId("table");
+		var oItems = oTable.getSelectedItems();
+		var oModel = this.getView().getModel();
+
+		//oModel.setDeferredGroups(["delete"]);
+
+		var oItems = oTable.getSelectedContextPaths();
+
+		for(var i = 0; i<oItems.length; i++){
+
+			//var sPath = oItems[i].getBindingContext().getPath();
+
+			//this._onDeleteEntry(sPath);
+			/*oModel.remove(sPath, {
+				groupId: "delete",
+				changeSetId: "delete${i}",				
+				success: function(data){
+						sap.MessageToast.show("Entry deleted success");
+	
+				}.bind(this), error: function(e){				
+					 console.error(e);
+				}.bind(this)
+	
+			 });		
+			 
+			 oModel.submitChanges({
+				 groupId: "delete"
+			 });*/
+
+			 this.getView().getModel().remove(oItems[i], {
+				 success: function(){
+				//	sap.MessageToast.show("Entry deleted success");
+				 }.bind(this),
+				 error: function(e){
+				//	 console.error(e);
+				 }.bind(this),
+			 });
+
+		}
+
+	},
+
+
+
+
+		/* =========================================================== */
+		/* End - Custom Methods                                        */
+		/* =========================================================== */
+		
 
 		/**
 		 * Triggered by the table's 'updateFinished' event: after new table
@@ -112,7 +298,7 @@ sap.ui.define([
 				var sQuery = oEvent.getParameter("query");
 
 				if (sQuery && sQuery.length > 0) {
-					aTableSearchState = [new Filter("ClientID", FilterOperator.Contains, sQuery)];
+					aTableSearchState = [new Filter("Name", FilterOperator.Contains, sQuery)];
 				}
 				this._applySearch(aTableSearchState);
 			}

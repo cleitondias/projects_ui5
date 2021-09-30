@@ -19,18 +19,20 @@
 			<Table
 				id="table"
 				width="auto"
+				mode="MultiSelect"
+				delete="onDelete"				
 				items="{
 					path: '/ClientSet',
 					sorter: {
 						path: 'ClientID',
 						descending: false
-					}
+					}	
 				}"
 				noDataText="{worklistView>/tableNoDataText}"
 				busyIndicatorDelay="{worklistView>/tableBusyDelay}"
 				growing="true"
-				growingScrollToLoad="true"
-				updateFinished=".onUpdateFinished">
+				growingScrollToLoad="false"
+				growingThreshold="5">
 
 				<headerToolbar>
 					<OverflowToolbar>
@@ -39,10 +41,30 @@
 							text="{worklistView>/worklistTableTitle}"
 							level="H3"/>
 						<ToolbarSpacer />
+						<Button
+							text="Create"
+							press="onCreate"
+						/>	
+						<Button
+							text="Delete"
+							press="onDelete2"
+							icon="sap-icon://delete"
+						/>												
+						<Button
+							text="Read"
+							press="onRead2"
+						/>							
+						<Button
+							text="Read_2"
+							press="onRead"
+						/>						
+						<Button
+							text="Sort"
+							press="onSortItems" />
 						<SearchField
 							id="searchField"
 							tooltip="{i18n>worklistSearchTooltip}"
-							search=".onSearch">
+							search=".onSearch2">
 							<layoutData>
 								<OverflowToolbarLayoutData
 									maxWidth="200px"
@@ -53,11 +75,21 @@
 				</headerToolbar>
 
 				<columns>
-					<Column id="nameColumn">
-						<Text text="{i18n>tableNameColumnTitle}" id="nameColumnTitle"/>
+					<Column id="ClientID">
+						<Text text="Client ID" id="clientid"/>
+					</Column>					
+
+					<Column id="Nome">
+						<Text text="Nome" id="nome"/>
 					</Column>
-					<Column id="unitNumberColumn" hAlign="End">
-						<Text text="{i18n>tableUnitNumberColumnTitle}" id="unitNumberColumnTitle"/>
+					<Column id="uf" hAlign="End">
+						<Text text="District" id="UF"/>
+					</Column>
+					<Column hAlign="End">
+						<Text text="Status"/>													
+					</Column>
+					<Column hAlign="End">
+						<Text text="Change Status" />
 					</Column>
 				</columns>
 
@@ -66,14 +98,11 @@
 						type="Navigation"
 						press=".onPress">
 						<cells>
-							<ObjectIdentifier
-								title="{ClientID}"/>
-							<ObjectNumber
-								number="{
-									path: '',
-									formatter: '.formatter.numberUnit'
-								}"
-								unit="{Name}"/>
+							<ObjectIdentifier title="{ClientID}"/>
+							<ObjectAttribute  text="{Name}"/>
+							<ObjectStatus     text="{District}" />
+							<ObjectStatus     text="{Status}" />
+							<Button icon="sap-icon://letter" press="onChangeStatus" />
 						</cells>
 					</ColumnListItem>
 				</items>

@@ -2,10 +2,13 @@
 	controllerName="cliente.controller.Object"
 	xmlns="sap.m"
 	xmlns:mvc="sap.ui.core.mvc"
-	xmlns:semantic="sap.f.semantic">
+	xmlns:semantic="sap.f.semantic"
+	xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form">
 
-	<semantic:SemanticPage
+	<semantic:SemanticPage	
 		id="page"
+		showFooter="true"
 		headerPinnable="false"
 		toggleHeaderOnTitleClick="false"
 		busy="{objectView>/busy}"
@@ -19,7 +22,7 @@
 
 		<semantic:headerContent>
 			<ObjectNumber
-				unit="{Name}"
+				unit="{District}"
 			/>
 		</semantic:headerContent>
 
@@ -27,6 +30,81 @@
 			<semantic:SendEmailAction id="shareEmail" press=".onShareEmailPress"/>
 		</semantic:sendEmailAction>
 
+			<l:VerticalLayout width="100%">
+					<f:SimpleForm
+						editable="true"
+						layout="ResponsiveGridLayout"
+						labelSpanXL="3"
+						labelSpanL="3"
+						labelSpanM="3"
+						labelSpanS="12"
+						adjustLabelSpan="false"
+						emptySpanXL="4"
+						emptySpanL="4"
+						emptySpanM="4"
+						emptySpanS="0"
+						columnsXL="1"
+						columnsL="1"
+						columnsM="1"
+						singleContainerFullSize="false"
+						>
+						<Label text="ID" />
+						<Text text="{ClientID}" id="IDClient"
+							/>
+						<Label text="Nome" />
+						<Input  
+							value="{Name}" id="Name"
+							/>
+	
+						<Label text="Telefone" />
+						<Input  
+							value="{Telephone}" id="Telephone"
+							/>	
+						
+						<Label text="UF" />
+						<Input  
+							value="{District}" id="UF"
+							/>
+					</f:SimpleForm>	
+					
+					<List id="vendasListCliente"
+					headerText="Vendas"
+					growing="true"
+					growingScrollToLoad="true"
+					growingThreshold="20"
+					class="sapUiResponsiveMargin"
+					width="auto"
+					items="{
+						path: 'vendas',
+						sorter: {
+							path: 'DataCriacao',
+							descending: true
+								},
+					    parameters: {
+							expand: 'cliente'
+						}
+							}">
+						<items>
+							<ObjectListItem
+							title="{Descricao}"
+							number="{ValorLiquido}"
+							numberState="{= ${ValorLiquido} > 500 ? 'Error' : 'Success'}"      
+						>
+						<attributes>
+							<ObjectAttribute text="{IDVenda}"></ObjectAttribute>
+							<ObjectAttribute text="{DataCriacao}"></ObjectAttribute>
+							<ObjectAttribute text="{cliente/Email}"></ObjectAttribute>
+						</attributes>
+						</ObjectListItem>
+					</items>		
+				  </List>	
+
+			</l:VerticalLayout>
+
+			<semantic:footerCustomActions>
+				<Button type="Accept" text="Gravar"   press="onSave2"/>					
+				<Button type="Reject" text="Cancelar" press="onCancel"/>					
+			</semantic:footerCustomActions>
 
 	</semantic:SemanticPage>
 

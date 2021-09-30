@@ -2,8 +2,13 @@ sap.ui.define([
 	"./BaseController",
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/core/routing/History",
-	"../model/formatter"
-], function (BaseController, JSONModel, History, formatter) {
+	"../model/formatter",
+	"sap/m/MessageToast"
+], function (BaseController,
+	JSONModel,
+	History,
+	formatter,
+	MessageToast) {
 	"use strict";
 
 	return BaseController.extend("cliente.controller.Object", {
@@ -43,6 +48,81 @@ sap.ui.define([
 		/* =========================================================== */
 		/* event handlers                                              */
 		/* =========================================================== */
+
+		onSave: function(){
+
+			var oModel = this.getView().getModel();
+
+			//var path = "/ClientSet('0000000002')";
+			var path = this.getView().getBindingContext().getPath();
+
+			var obj = {
+				Name: this.byId("Name").getValue(),
+				Telephone: this.byId("Telephone").getValue(),
+				District: this.byId("UF").getValue(),
+				Email: "tijuda@aol.com",
+				Status: "4"
+			};
+
+			oModel.update(path, obj, {
+
+				success: function(oDados, OResponse){
+					debugger
+
+				}, error: function(oError){
+					 debugger
+				}				
+
+			});
+
+			console.log("End method");
+
+		},
+
+
+		onSave2: function(){
+
+			var oModel = this.getView().getModel();
+
+			if (oModel.hasPendingChanges() ){
+				MessageToast.show("Changes was changes");
+			} else{
+				MessageToast.show("Not data change");
+				return;
+			};
+
+			oModel.submitChanges({
+				success:function(oDados, oResponse){
+
+					MessageToast.show("Data updated successfuly!!!");
+
+				}, error:function(oError){
+					MessageToast.show("Error: data wasn+t updated!");
+				}
+			});
+
+		},
+
+
+		onCancel: function(){
+
+			var m = this.getView().getModel();
+
+			if (!m.hasPendingChanges()){
+				MessageToast.show("No data to updated");
+				return;
+			}
+
+			m.resetChanges();
+
+		},
+
+
+
+
+
+
+
 
 
 		/**

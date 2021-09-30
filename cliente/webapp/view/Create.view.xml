@@ -1,0 +1,78 @@
+<mvc:View
+	controllerName="cliente.controller.Create"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"    
+	xmlns:c="sap.ui.core"
+	xmlns:semantic="sap.f.semantic"
+	xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form"    
+	displayBlock="true"
+	height="100%"
+	busyIndicatorDelay="0"
+>
+
+<Page
+title="Criar Novo Cliente"
+showNavButton="true"
+navButtonPress=".onNavBack"
+floatingFooter="true">
+<ObjectHeader intro="{ClientID}"
+              title="{Name}" />
+    <l:VerticalLayout width="100%">
+            <f:SimpleForm
+                editable="true"
+                layout="ResponsiveGridLayout"
+                labelSpanXL="3"
+                labelSpanL="3"
+                labelSpanM="3"
+                labelSpanS="12"
+                adjustLabelSpan="false"
+                emptySpanXL="4"
+                emptySpanL="4"
+                emptySpanM="4"
+                emptySpanS="0"
+                columnsXL="1"
+                columnsL="1"
+                columnsM="1"
+                singleContainerFullSize="false"
+                >
+                <Label text="Nome" />
+                <Input  
+                    value="{Name}" id="InpName"
+                    />
+
+                    <Label text="Telefone" />
+                    <Input  
+                        value="{Telephone}" id="InpTelephone"
+                        />	                    
+
+                <Label text="Email" />
+                <Input  
+                    value="{Email}" id="InpEmail"
+                    />	
+                
+                <Label text="UF" />
+                <Input  
+                    value="{District}" id="InpUF"
+                    />
+                <Label text="Quantidade de copias" />
+                <Input value= "{
+                    path: 'view>/copies',
+                    type: 'sap.ui.model.type.Integer',
+                    constraints: {
+                        minimum: 0
+                        }
+                    }" 
+                />
+            </f:SimpleForm>	            
+    </l:VerticalLayout>
+    <footer>
+		<OverflowToolbar>
+			<ToolbarSpacer/>
+			<Button type="Accept" text="Gravar" press="onGravar2" />
+			<Button type="Reject" text="Cancelar" press="onCancelar "/>
+		</OverflowToolbar>
+	</footer>
+</Page>
+
+</mvc:View>

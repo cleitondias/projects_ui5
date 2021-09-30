@@ -1,0 +1,57 @@
+<mvc:View
+    controllerName="cliente01.controller.Worklist"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+>
+	<Shell id="shell">
+				<Page id="page" title="">
+					<Text text="Hello Worlf from View"/>
+					<IconTabBar id="idIconTab" upperCase="true" expanded="{define>isNoPhone}"
+						class="sapUiResponsiveContentPadding">
+                       <items>
+						   <IconTabFilter text="Info"
+						   				  key="info">
+											 <Panel headerText="Cadastro de: {pessoa>/nome} {pessoa>/sobrenome}"  
+												    class="sapUiResponsiveMargin" width="auto">
+													<headerToolbar>
+														<OverflowToolbar>
+															<content>
+																<ToolbarSpacer></ToolbarSpacer>
+																<Button text="Criar">																	
+																</Button>
+															</content>
+														</OverflowToolbar>
+													</headerToolbar>
+												<content>
+												  <Label text="Nome" class="sapUiSmallMargin" />
+												  <Input value="" valueLiveUpdate="true" width="200px"/>
+												  <Label text="Sobrenome" class="sapUiSmallMargin" />
+												  <Input value="" width="200px"  />
+												  <CheckBox id="ch_hab"  text="Habilitado" />
+												</content>
+											  </Panel> 											 
+							</IconTabFilter>
+							<IconTabFilter text="Clientes"
+							               key="keyc">
+							 <content>
+								<List headerText="Lista de Clientes"
+									growing="true"
+									growingThreshold="4"
+									class="sapUiResponsiveMargin"
+									width="auto"
+									items="{/ClientSet}">
+										<items>
+											<StandardListItem
+											type="Active"
+											press="onClientePress"        
+										    title="{ClientID} {Name}"/>
+									</items>		
+						  		</List>
+							 </content>
+							</IconTabFilter>
+					   </items>
+					</IconTabBar>								
+				</Page>
+	</Shell>
+</mvc:View>

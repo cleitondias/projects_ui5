@@ -1,0 +1,55 @@
+<mvc:View
+controllerName="cliente01.controller.Object"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout">
+
+	<Page
+    id="detalhesClientePage"
+    title=" Detalhes de Cliente" 
+    showNavButton="true"
+    navButtonPress="onNavBack">
+
+    <content>    
+		<l:VerticalLayout width="100%">
+				<f:SimpleForm
+					editable="true"
+					layout="ResponsiveGridLayout"
+					labelSpanXL="3"
+					labelSpanL="3"
+					labelSpanM="3"
+					labelSpanS="12"
+					adjustLabelSpan="false"
+					emptySpanXL="4"
+					emptySpanL="4"
+					emptySpanM="4"
+					emptySpanS="0"
+					columnsXL="1"
+					columnsL="1"
+					columnsM="1"
+					singleContainerFullSize="false"
+					>
+					<Label text="ID" />
+					<Text text="{ClientID}" 
+						/>
+					<Label text="Nome" />
+					<Input  
+						value="{Name}" 
+						/>
+
+					<Label text="Telefone" />
+					<Input  
+						value="{Telephone}" 
+						/>	
+					
+					<Label text="UF" />
+					<Input  
+						value="{District}" 
+						/>
+				</f:SimpleForm>							
+
+		</l:VerticalLayout>
+	</content>
+</Page>
+</mvc:View>

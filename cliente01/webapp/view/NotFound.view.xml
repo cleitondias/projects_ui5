@@ -1,0 +1,8 @@
+<mvc:View
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m">
+    <MessagePage 
+      title="Error"
+      text="Page Not Found" 
+      description="Please, check the address and try again!!!"/>
+</mvc:View>
